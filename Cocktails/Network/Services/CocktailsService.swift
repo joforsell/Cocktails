@@ -9,6 +9,7 @@ import Foundation
 
 protocol CocktailsServiceable {
     func getCocktails() async throws -> [Cocktail]
+    func getDetailedCocktail(withID id: String) async throws -> DetailedCocktail
 }
 
 struct CocktailsService: HTTPClient, CocktailsServiceable {

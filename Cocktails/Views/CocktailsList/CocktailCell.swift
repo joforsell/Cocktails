@@ -8,27 +8,26 @@
 import UIKit
 
 class CocktailCell: UITableViewCell {
+    static let identifier = "Cocktail"
 
-    private lazy var image: UIImageView = {
+    lazy var cocktailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 4
         return imageView
     }()
     
-    private lazy var name: UILabel = {
+    lazy var name: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(image)
+        contentView.addSubview(cocktailImageView)
         contentView.addSubview(name)
         makeConstraints()
     }
@@ -38,11 +37,21 @@ class CocktailCell: UITableViewCell {
     }
     
     func makeConstraints() {
+        let padding: CGFloat = 8
+        
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: contentView.topAnchor),
-            image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            image.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
-            image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 9/16)
+            cocktailImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cocktailImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            cocktailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cocktailImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
+            
+            name.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: padding),
+            name.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
+        
+        // Workaround for a bug(?) where UIView-Encapsulated-Layout-Height constraint set by UITableView was conflicting with the custom constraint.
+        let heightConstraint = cocktailImageView.heightAnchor.constraint(equalTo: cocktailImageView.widthAnchor)
+        heightConstraint.priority = UILayoutPriority(999)
+        heightConstraint.isActive = true
     }
 }
