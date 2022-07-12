@@ -7,8 +7,10 @@
 
 import UIKit
 
-class CocktailCell: UITableViewCell {
+final class CocktailCell: UITableViewCell {
     static let identifier = "Cocktail"
+    
+    var imageCache: ImageCache?
 
     lazy var cocktailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -21,6 +23,7 @@ class CocktailCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.numberOfLines = 2
         return label
     }()
     
@@ -47,11 +50,18 @@ class CocktailCell: UITableViewCell {
             
             name.leadingAnchor.constraint(equalTo: cocktailImageView.trailingAnchor, constant: padding),
             name.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            name.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
         
         // Workaround for a bug(?) where UIView-Encapsulated-Layout-Height constraint set by UITableView was conflicting with the custom constraint.
         let heightConstraint = cocktailImageView.heightAnchor.constraint(equalTo: cocktailImageView.widthAnchor)
         heightConstraint.priority = UILayoutPriority(999)
         heightConstraint.isActive = true
+    }
+    
+    func getImageWithUrl(_ urlString: String, loader: ImageLoader = ImageLoader()) async throws {
+        let url = URL(string: urlString)!
+        let image = try await imageCache?.load(url: url as NSURL)
+        cocktailImageView.image = image
     }
 }

@@ -1,0 +1,23 @@
+
+{
+    "id": "12560",
+    "name": "Afterglow",
+    "imageUrl":
+    "https://www.thecocktaildb.com/images/media/drink/vuquyv1468876052.jpg",
+    "glass": "Highball Glass",
+    "instructions": "Mix. Serve over ice.",
+    "ingredients": [
+        {
+            "name": "Grenadine",
+            "measure": "1 part "
+        },
+        {
+            "name": "Orange juice",
+            "measure": "4 parts "
+        },
+        {
+            "name": "Pineapple juice",
+            "measure": "4 parts "
+        }
+    ]
+}
