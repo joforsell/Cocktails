@@ -8,7 +8,5 @@
 import SwiftUI
 
 extension Image {
-    static var placeholder: Image {
-        Image("placeholder")
-    }
+    static var placeholder = Image("placeholder")
 }

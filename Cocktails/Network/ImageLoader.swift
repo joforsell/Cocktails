@@ -13,7 +13,6 @@ final actor ImageLoader {
         
     public func fetch(_ url: URL) async throws -> UIImage {
         let request = URLRequest(url: url)
-//        print("Fetching image with URL: \(url)")
         return try await fetch(request)
     }
     

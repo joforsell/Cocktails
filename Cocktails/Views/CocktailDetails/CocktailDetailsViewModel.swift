@@ -9,17 +9,17 @@ import SwiftUI
 
 @MainActor
 class CocktailDetailsViewModel: ObservableObject {
-    let cocktailId: String
-    let service: CocktailsServiceable
-    let imageCache: ImageCache
+    private let cocktailId: String
+    private let service: CocktailsServiceable
+    private let imageLoader: ImageLoader
     @Published private(set) var cocktail: DetailedCocktail?
-    @Published var errorMessage: String?
+    @Published private(set) var errorMessage: String?
     @Published private(set) var cocktailImage: Image?
     
-    init(cocktailId: String, service: CocktailsServiceable = CocktailsService(), imageCache: ImageCache) {
+    init(cocktailId: String, service: CocktailsServiceable = CocktailsService(), imageLoader: ImageLoader) {
         self.cocktailId = cocktailId
         self.service = service
-        self.imageCache = imageCache
+        self.imageLoader = imageLoader
     }
     
     func getCocktail() async {
@@ -35,7 +35,7 @@ class CocktailDetailsViewModel: ObservableObject {
     
     private func getImageWithUrl(_ urlString: String?) async throws {
         let url = URL(string: urlString!)!
-        let uIimage = try await imageCache.load(url: url as NSURL)
+        let uIimage = try await imageLoader.fetch(url)
         cocktailImage = Image(uiImage: uIimage)
     }
 }

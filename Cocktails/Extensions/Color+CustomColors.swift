@@ -8,11 +8,6 @@
 import SwiftUI
 
 extension Color {
-    static var cocktailPink: Color {
-        Color("cocktailPink")
-    }
-    
-    static var cocktailGreen: Color {
-        Color("cocktailGreen")
-    }
+    static let cocktailPink = Color("cocktailPink")
+    static var cocktailGreen = Color("cocktailGreen")
 }

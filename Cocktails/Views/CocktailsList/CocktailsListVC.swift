@@ -10,7 +10,7 @@ import SwiftUI
 
 final class CocktailsListVC: UITableViewController {
     private let service: CocktailsServiceable
-    private let imageCache: ImageCache
+    private let imageLoader: ImageLoader
     var cocktails = [Cocktail]()
     var errorMessage: String? {
         didSet {
@@ -37,9 +37,9 @@ final class CocktailsListVC: UITableViewController {
         loadCocktails()
     }
     
-    init(service: CocktailsServiceable, imageCache: ImageCache = ImageCache()) {
+    init(service: CocktailsServiceable, imageLoader: ImageLoader = ImageLoader()) {
         self.service = service
-        self.imageCache = imageCache
+        self.imageLoader = imageLoader
         super.init(style: .grouped)
     }
     
@@ -81,7 +81,7 @@ extension CocktailsListVC {
         
         let cocktail = cocktails[indexPath.item]
         
-        cell.imageCache = imageCache
+        cell.imageLoader = imageLoader
         Task {
             do {
                 try await cell.getImageWithUrl(cocktail.imageUrl)
@@ -95,7 +95,7 @@ extension CocktailsListVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewModel = CocktailDetailsViewModel(cocktailId: cocktails[indexPath.item].id, imageCache: imageCache)
+        let viewModel = CocktailDetailsViewModel(cocktailId: cocktails[indexPath.item].id, imageLoader: imageLoader)
         let vc = UIHostingController(rootView: CocktailDetailsView(viewModel: viewModel))
         navigationController?.navigationBar.isHidden = false
         navigationController?.pushViewController(vc, animated: true)

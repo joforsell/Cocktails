@@ -10,7 +10,7 @@ import UIKit
 final class CocktailCell: UITableViewCell {
     static let identifier = "Cocktail"
     
-    var imageCache: ImageCache?
+    var imageLoader: ImageLoader?
 
     lazy var cocktailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -59,9 +59,9 @@ final class CocktailCell: UITableViewCell {
         heightConstraint.isActive = true
     }
     
-    func getImageWithUrl(_ urlString: String, loader: ImageLoader = ImageLoader()) async throws {
+    func getImageWithUrl(_ urlString: String) async throws {
         let url = URL(string: urlString)!
-        let image = try await imageCache?.load(url: url as NSURL)
+        let image = try await imageLoader?.fetch(url)
         cocktailImageView.image = image
     }
 }

@@ -8,11 +8,6 @@
 import UIKit
 
 extension UIColor {
-    static var cocktailPink: UIColor {
-        UIColor(named: "cocktailPink")!
-    }
-    
-    static var cocktailGreen: UIColor {
-        UIColor(named: "cocktailGreen")!
-    }
+    static var cocktailPink = UIColor(named: "cocktailPink")!
+    static var cocktailGreen = UIColor(named: "cocktailGreen")!
 }

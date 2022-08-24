@@ -26,7 +26,7 @@ class CocktailsTests: XCTestCase {
 
     @MainActor
     func testCocktailDetailsViewModel_LoadsDetailedCocktail() async throws {
-        let vm = CocktailDetailsViewModel(cocktailId: "12560", service: CocktailsServiceMock(jsonFileName: "detailed_cocktail_example"), imageCache: ImageCache())
+        let vm = CocktailDetailsViewModel(cocktailId: "12560", service: CocktailsServiceMock(jsonFileName: "detailed_cocktail_example"), imageLoader: ImageLoader())
         
         await vm.getCocktail()
         
